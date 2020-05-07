@@ -1,5 +1,4 @@
 -- Higher Order Functions chapter from LYAH
-
 compareWithHundred :: (Ord a, Num a) => a -> Ordering
 compareWithHundred = compare 100 
 
@@ -35,7 +34,6 @@ largestDivisible = head (filter p [100000, 99999..])
 
 -- sum of all odd squares less than 10,000
 wayOne = sum (takeWhile (<10000) (filter odd (map (^2) [1..])))
-
 wayTwo = sum (takeWhile (<10000) [x^2 | x <- [1..], odd (x^2)])
 
 chain :: (Integral a) => a -> [a]
@@ -43,14 +41,17 @@ chain 1 = [1]
 chain n
     | even n = n:chain (n `div` 2)
     | odd n  = n:chain (n*3 + 1)
-
-numLongChains :: Int 
+    
 numLongChains = length  (filter isLong (map chain [1..100]))
     where isLong xs = length xs > 15
 
--- List of funs map with function of two parameters
-listOfFuns = (*) [1..10]
-
 -- numLongChains with lambda
-numLongChains :: INt
-numLongChains length (filter (\xs -> length xs > 15) (map chain [1..100]))
+numLongChains' =  length (filter (\xs -> length xs > 15) (map chain [1..100]))
+
+-- foldl
+sum' xs = foldl (\acc x -> acc + x) 0 xs
+
+-- no need to include second argument because foldl will return a function that takes on arg
+
+sumElegant :: (Foldable t, Num a) => t a -> a
+sumElegant = foldl (+) 0 
