@@ -55,3 +55,35 @@ sum' xs = foldl (\acc x -> acc + x) 0 xs
 
 sumElegant :: (Foldable t, Num a) => t a -> a
 sumElegant = foldl (+) 0 
+
+elem' y ys = foldl (\acc x -> if x == y then True else acc) False ys
+
+mapFold' f xs = foldr (\x acc -> f x : acc) [] xs
+
+-- implementations of standard functions with folds
+
+
+maximum' :: (Ord a) => [a] -> a
+maximum' = foldr1 (\x acc -> if x > acc then x else acc) 
+
+reverse' :: [a] -> [a]
+reverse' = foldl (\acc x -> x : acc) []
+
+product' :: (Num a) => [a] -> a 
+product' = foldr1 (\x acc -> x * acc) 
+-- or: product' = foldr1 (*) 
+
+filterFold' :: (a -> Bool) -> [a] -> [a]
+filterFold' f = foldr(\x acc -> if f x then x : acc else acc) []
+
+sqrtSums = length (takeWhile(<1000) (scanl1 (+) (map sqrt [1..]))) + 1
+
+-- $ function application, but with lowest precedence 
+($) :: (a -> b) -> a -> b 
+f $ x = f x 
+-- f (g (z x))) = f $ g $ z x
+
+-- function composition
+mapExampleLam' = map (\x -> negate (abs x)) [1..15]
+mapExampleComp' = map (negate . abs) [1..15]
+

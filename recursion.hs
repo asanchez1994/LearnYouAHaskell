@@ -16,6 +16,7 @@ replicate' :: (Ord t1, Num t1) => t1 -> t -> [t]
 replicate' x y
     | x <= 0 = []
     | otherwise = y:replicate' (x-1) y
+
 take' :: (Ord t1, Num t1) => t1 -> [t] -> [t]
 take' n _
     | n <= 0 = []
