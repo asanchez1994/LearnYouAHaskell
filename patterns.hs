@@ -1,4 +1,4 @@
--- Syntax in Function chapter from LYAH
+-- Syntax in Functions chapter from LYAH
 
 lucky :: (Eq a, Num a) => a -> [Char]
 lucky 7 = "LUCKY NUMBER SEVEN!"
